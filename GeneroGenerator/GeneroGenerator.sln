@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneroGenerator", "GeneroGenerator.csproj", "{68B36E71-8E44-4930-8AF9-F15E1529D6B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68B36E71-8E44-4930-8AF9-F15E1529D6B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B36E71-8E44-4930-8AF9-F15E1529D6B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B36E71-8E44-4930-8AF9-F15E1529D6B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B36E71-8E44-4930-8AF9-F15E1529D6B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E822772-A2F3-49B5-9FD7-BCAF4B9EA8E1}
+	EndGlobalSection
+EndGlobal
