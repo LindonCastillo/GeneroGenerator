@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneroGenerator.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

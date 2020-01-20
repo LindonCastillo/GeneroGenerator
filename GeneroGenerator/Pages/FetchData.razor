@@ -1,6 +1,10 @@
 ﻿@page "/fetchdata"
 
 @using GeneroGenerator.Data
+@using GeneroGenerator.BLL
+@using GeneroGenerator.Entidades
+
+
 @inject WeatherForecastService ForecastService
 
 
@@ -31,11 +35,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mainkra</td>
-                <td><a href="">Editar</a>|<a href="">Eliminar</a></td>
-            </tr>
+            @foreach (var item in lista)
+            {
+                <tr>
+                    <td>@item.GeneroId</td>
+                    <td>@item.Nombre</td>
+                    <td><a href="">Editar</a>|<a href="">Eliminar</a></td>
+                </tr>
+            }
+
 
         </tbody>
     </table>
@@ -43,5 +51,21 @@
    
 
 @code {
+
+    public List<Generos> lista { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            RepositorioBase<Generos> db = new RepositorioBase<Generos>();
+            lista = db.GetList(C=> true);
+        }
+        catch(Exception)
+        {
+            throw;
+        }
+
+    }
+
 
 }
