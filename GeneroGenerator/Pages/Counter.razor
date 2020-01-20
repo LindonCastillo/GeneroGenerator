@@ -1,4 +1,7 @@
 ﻿@page "/counter"
+@using GeneroGenerator.BLL;
+@using GeneroGenerator.Entidades;
+@using GeneroGenerator.Data; 
 
     <style>
         body {
@@ -9,7 +12,7 @@
 
         .form-register {
             width: 600px;
-            background: #24303c;
+            background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
             padding: 30px;
             margin: auto;
             margin-top: 100px;
@@ -26,11 +29,11 @@
 
         .controls {
             width: 100%;
-            background: #24303c;
+            background: #FFFFFF;
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 16px;
-            border: 1px solid #0EBA25;
+            border: 1px solid #000000;
             font-family: 'calibri';
             font-size: 18px;
         }
@@ -42,7 +45,7 @@
             padding: 12px;
             color: white;
             margin: 16px 0;
-            font-size: 26px;
+            font-size: 24px;
         }
 
     </style>
@@ -55,19 +58,19 @@
                 <h4>Registro de Generos</h4>
 
                 <input class="controls" type="text" name="nombres" id="nombres-texbox" placeholder="Ingrese el Genero">
-                <input class="botons" type="submit" value="Guardar">
+                <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
             </div>
         </section>
     </div>
 
-
-@*<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>*@
-
 @code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
-    {
-        currentCount++;
+
+    private void Guardar()
+    { 
+        RepositorioBase<Generos> db = new RepositorioBase<Generos>();
+
+
+
     }
 }
