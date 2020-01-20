@@ -57,7 +57,7 @@
             <div>
                 <h4>Registro de Generos</h4>
 
-                <input class="controls" type="text" name="nombres" id="nombres-texbox" placeholder="Ingrese el Genero">
+                <input class="controls" type="text" name="nombres" @bind="@generos.Nombre" id="nombres_texbox" placeholder="Ingrese el Genero">
                 <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
             </div>
         </section>
@@ -65,12 +65,21 @@
 
 @code {
 
-
+    Generos generos = new Generos();
     private void Guardar()
-    { 
+    {
         RepositorioBase<Generos> db = new RepositorioBase<Generos>();
 
+        try
+        {
+            db.Guardar(generos);
+            generos = new Generos();
+            generos.Nombre = "Guardar";
+        }
+        catch (Exception)
+        {
 
-
+            throw;
+        }
     }
 }
