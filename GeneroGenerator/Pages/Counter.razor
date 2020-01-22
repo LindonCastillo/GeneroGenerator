@@ -1,85 +1,145 @@
-﻿@page "/counter"
+﻿@page "/Counter/{Id:int}"
+
 @using GeneroGenerator.BLL;
 @using GeneroGenerator.Entidades;
-@using GeneroGenerator.Data; 
+@using GeneroGenerator.Data;
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .form-register {
-            width: 600px;
-            background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-            padding: 30px;
-            margin: auto;
-            margin-top: 100px;
-            border-radius: 4px;
-            font-family: 'calibri';
-            color: white;
-            box-shadow: 7px 13px 37px #000;
-        }
+    .form-register {
+        width: 600px;
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+        padding: 30px;
+        margin: auto;
+        margin-top: 100px;
+        border-radius: 4px;
+        font-family: 'calibri';
+        color: white;
+        box-shadow: 7px 13px 37px #000;
+    }
 
         .form-register h4 {
-                font-size: 22px;
-                margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 20px;
         }
 
-        .controls {
-            width: 100%;
-            background: #FFFFFF;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            border: 1px solid #000000;
-            font-family: 'calibri';
-            font-size: 18px;
-        }
+    .controls {
+        width: 100%;
+        background: #FFFFFF;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #000000;
+        font-family: 'calibri';
+        font-size: 18px;
+    }
 
-        .form-register .botons {
-            width: 100%;
-            background: #0EBA25;
-            border: none;
-            padding: 12px;
-            color: white;
-            margin: 16px 0;
-            font-size: 24px;
-        }
+    .form-register .botons {
+        width: 100%;
+        background: #0EBA25;
+        border: none;
+        padding: 12px;
+        color: white;
+        margin: 16px 0;
+        font-size: 24px;
+    }
+</style>
 
-    </style>
-        
 
-    <div>
-        
-        <section class="form-register">
-            <div>
-                <h4>Registro de Generos</h4>
+<div>
 
-                <input class="controls" type="text" name="nombres" @bind="@generos.Nombre" id="nombres_texbox" placeholder="Ingrese el Genero">
-                <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
-            </div>
-        </section>
-    </div>
+    <section class="form-register">
+        <div>
+            <h4>Registro de Generos</h4>
+            <h5 class="form-text text-muted">@Mensaje</h5>
+            <input class="controls" type="text" name="nombres" @bind="@generos.Nombre" id="nombres_texbox" placeholder="Ingrese el Genero">
+            <input class="botons" type="submit" value="Guardar" @onclick="Guardar">
+        </div>
+    </section>
+</div>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+    public string Mensaje { get; set; }
 
     Generos generos = new Generos();
+
+    protected override async Task OnInitializedAsync()
+    {
+        RepositorioBase<Generos> db = new RepositorioBase<Generos>();
+        Mensaje = string.Empty;
+        if (Id != 0)
+        {
+            generos = db.Buscar(Id);
+        }
+
+    }
+
+
+
+    private bool Validacion()
+    {
+        bool paso = true;
+
+        if (string.IsNullOrEmpty(generos.Nombre))
+        {
+            Mensaje = "No puede dejar este campo vacío";
+
+            paso = false;
+
+        }
+
+        return paso;
+
+    }
+
+    private void Limpiar()
+    {
+        generos.Nombre = string.Empty;
+    }
+
     private void Guardar()
     {
         RepositorioBase<Generos> db = new RepositorioBase<Generos>();
 
-        try
+        if (!Validacion())
         {
-            db.Guardar(generos);
-            generos = new Generos();
-            generos.Nombre = "Guardar";
+            return;
         }
-        catch (Exception)
+        else
         {
+            try
+            {
 
-            throw;
+                if (generos.GeneroId > 0)
+                {
+                    db.Modificar(generos);
+                    Limpiar();
+                    Mensaje = "El Genero ha sido Modificado";
+                }
+                else
+                {
+                    db.Guardar(generos);
+                    Limpiar();
+                    generos = new Generos();
+                    Mensaje = "Se guardo el Genero";
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+
+
     }
 }
